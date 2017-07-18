@@ -1,0 +1,17 @@
+#filter {
+  min-height:80px;
+  margin-bottom: 50px;
+  background-color: #e0e0e0;
+  box-shadow: 5px 5px 5px grey;
+}
+
+.selector {
+  display: inline-block;
+  margin: 5px 15px;
+}
+
+.selector select ,.selector input{
+   height: 2rem;
+   width: 10rem;
+}
+

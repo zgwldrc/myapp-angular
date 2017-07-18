@@ -1,9 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import {HttpModule} from "@angular/http";
+import {FormsModule} from "@angular/forms";
 
-import { AppComponent } from './root/app.component';
-import { LoginFormComponent } from './login-form/login-form.component';
-import { AccountListComponent } from './account-list/account-list.component';
+import { AppComponent } from '../components/root/app.component';
+import { LoginFormComponent } from '../components/login-form/login-form.component';
+import { AccountListComponent } from '../components/account-list/account-list.component';
+import { AppRoutingModule } from "./app-routing.module";
+import { AccountService } from "../services/account.service";
+
 
 @NgModule({
   declarations: [
@@ -12,9 +17,9 @@ import { AccountListComponent } from './account-list/account-list.component';
     AccountListComponent,
   ],
   imports: [
-    BrowserModule
+    BrowserModule, AppRoutingModule, HttpModule, FormsModule
   ],
-  providers: [],
+  providers: [ AccountService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

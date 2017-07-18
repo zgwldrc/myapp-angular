@@ -1,0 +1,32 @@
+<div id="filter" class="container">
+  <h3>查询过滤器</h3>
+  <section class="selector">
+    <label for="typeselect">账户类型：</label>
+    <select [(ngModel)]="filter.type" id="typeselect" (change)="search()">
+      <option value=""></option>
+      <option *ngFor="let accountType of accountTypeList" value="{{accountType.pk}}">
+        {{accountType.fields.type}}
+      </option>
+    </select>
+  </section>
+  <section class="selector">
+    <label for="login_to">登陆到哪里：</label>
+    <input type="text" id="login_to" [(ngModel)]="filter.login_to" (keyup)="search()">
+  </section>
+  <section class="selector">
+    <label for="search_term">Search：</label>
+    <input type="text" id="search_term" [(ngModel)]="filter.search_term" (keyup)="search()">
+  </section>
+</div>
+
+<table class="table">
+  <tr><th>ID</th><th>用户名</th><th>密码</th><th>登陆到</th><th>备注描述</th><th>类型</th></tr>
+  <tr *ngFor="let account of account_list | async">
+    <td>{{account.pk}}</td>
+    <td>{{account.fields.username}}</td>
+    <td>{{account.fields.password}}</td>
+    <td>{{account.fields.login_url}}</td>
+    <td>{{account.fields.desc}}</td>
+    <td>{{account.fields.type}}</td>
+  </tr>
+</table>
