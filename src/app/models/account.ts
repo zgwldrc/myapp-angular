@@ -11,19 +11,21 @@ export class Account {
   };
 
   constructor(
-    username: string,
-    password: string,
-    desc: string,
-    login_url: string,
-    owner: any,
-    type: any
+    username: string = null,
+    password: string = null,
+    desc: string = null,
+    login_url: string = null,
+    owner: any = null,
+    type: any = null
   ){
     this.pk = null;
-    this.fields.username = username;
-    this.fields.password = password;
-    this.fields.desc = desc;
-    this.fields.login_url = login_url;
-    this.fields.owner = owner;
-    this.fields.type = type;
+    this.fields = {
+      username: username,
+      password: password,
+      desc: desc,
+      login_url: login_url,
+      owner: owner,
+      type: type
+    };
   }
 }

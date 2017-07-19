@@ -1,17 +1,27 @@
 #filter {
+  padding: 20px;
   min-height:80px;
-  margin-bottom: 50px;
+  margin-bottom: 35px;
   background-color: #e0e0e0;
   box-shadow: 5px 5px 5px grey;
 }
-
+td {
+  line-height:30px !important;
+}
 .selector {
   display: inline-block;
-  margin: 5px 15px;
+  margin: 10px 15px;
 }
 
 .selector select ,.selector input{
-   height: 2rem;
-   width: 10rem;
+   height: 1.5rem;
+   width: 6rem;
 }
+
+.ctrlbutton {
+  display: inline;
+  margin: 0.7rem;
+  cursor: pointer;
+}
+
 

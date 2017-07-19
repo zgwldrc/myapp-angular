@@ -1,0 +1,14 @@
+<div class="modal-header">
+  <button class="close" (click)="activeModal.dismiss('Cross click')">
+    <span>x</span>
+  </button>
+  <h4 class="modal-title">Small Project</h4>
+</div>
+<div class="modal-body">
+  <p>{{msg}}</p>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-secondary" (click)="activeModal.close('Close click')">
+    <span>关闭</span>
+  </button>
+</div>

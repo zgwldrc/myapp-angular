@@ -1,0 +1,34 @@
+<div class="modal-header">
+  <button class="close" (click)="activeModal.dismiss('Cross click')">
+    <span>x</span>
+  </button>
+  <h4 class="modal-title">Account Add</h4>
+</div>
+<div class="modal-body">
+  <div class="form-group">
+    <label for="username">账户名称：</label>
+    <input [(ngModel)]="account.fields.username"
+           id="username" required
+           type="text" class="form-control">
+  </div>
+  <div class="form-group">
+    <label for="password">账户密码：</label>
+    <input [(ngModel)]="account.fields.password"
+      id="password" type="password" required
+           class="form-control">
+  </div>
+  <div class="form-group">
+    <label for="type">账户类型：</label>
+    <select [(ngModel)]="account.fields.type"
+      id="type" class="form-control" required>
+      <option *ngFor="let accountType of accountTypeList" value="{{accountType.pk}}">
+        {{accountType.fields.type}}
+      </option>
+    </select>
+  </div>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-secondary" (click)="activeModal.close('Close click')">
+    <span>关闭</span>
+  </button>
+</div>

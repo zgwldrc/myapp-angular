@@ -24,7 +24,13 @@ export class AccountService {
   getTypeList(): Observable<AccountType[]> {
     const url = this.accountApi + 'typelist/';
     return this.http.get(url)
-      .map(resp => resp.json() as AccountType[])
+      .map(resp => resp.json() as AccountType[]);
+  }
+
+  getCount(): Observable<number> {
+    const url = this.accountApi + 'count/';
+    return this.http.get(url)
+      .map(resp => resp.json().count as number);
   }
 
 }
