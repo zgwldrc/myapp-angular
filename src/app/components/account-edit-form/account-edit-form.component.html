@@ -2,8 +2,9 @@
   <button class="close" (click)="activeModal.dismiss('Cross click')">
     <span>x</span>
   </button>
-  <h4 class="modal-title">Account Add</h4>
+  <h4 class="modal-title">Account Update</h4>
 </div>
+
 <div class="modal-body">
   <form [formGroup]="accountForm">
     <div class="form-group"
@@ -16,7 +17,7 @@
              [class.form-control-danger]="accountForm.get('username').errors && accountForm.get('username').touched"
              id="username" class="form-control">
       <div *ngIf="accountForm.get('username').hasError('minlength')"
-        class="form-control-feedback">
+           class="form-control-feedback">
         要求最小长度{{usernameMinLength}}
       </div>
       <div *ngIf="accountForm.get('username').hasError('maxlength')"
@@ -31,9 +32,9 @@
 
       <label for="password" class="form-control-label">账户密码：</label>
       <span><button class="btn btn-sm" type="button"
-            (click)="passwordInputTypeToggle()">{{inversePasswordInputType}}</button></span>
+                    (click)="passwordInputTypeToggle()">{{inversePasswordInputType}}</button></span>
       <span><button class="btn btn-sm" type="button"
-            (click)="generatePassword()">生成随机密码</button></span>
+                    (click)="generatePassword()">生成随机密码</button></span>
       <input id="password" class="form-control" [type]="passwordInputType"
              formControlName="password"
              [class.form-control-success]="accountForm.get('password').valid"
@@ -94,17 +95,10 @@
   </form>
 </div>
 
-<div class="modal-footer clear-float">
-  <div class="btn-group btn-toolbar">
-    <button type="button" class="btn btn-outline-success" name="submitThenGoOn"
-            [disabled]="accountForm.invalid"
-            (click)="addAccount($event)">
-      提交->继续
-    </button>
-    <button type="button" class="btn btn-outline-primary" name="submitThenQuit"
-            [disabled]="accountForm.invalid"
-            (click)="addAccount($event)">
-      提交->关闭
-    </button>
-  </div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-success form-control"
+          (click)="updateAccount()"
+          [disabled]="accountForm.invalid">
+    保存->退出
+  </button>
 </div>

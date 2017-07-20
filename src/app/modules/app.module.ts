@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from "@angular/http";
-import { FormsModule } from "@angular/forms";
+import {ReactiveFormsModule, FormsModule} from "@angular/forms";
 
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -14,6 +14,8 @@ import { AccountService } from "../services/account.service";
 import { AccountQuickEditorComponent } from '../components/account-quick-editor/account-quick-editor.component';
 import { MessageboxComponent } from '../components/messagebox/messagebox.component';
 import { AccountAddComponent } from '../components/account-add/account-add.component';
+import { AccountEditFormComponent } from '../components/account-edit-form/account-edit-form.component';
+import {AccountAddEventEmitService} from "../services/account-add-event-emit.service";
 
 
 
@@ -25,19 +27,22 @@ import { AccountAddComponent } from '../components/account-add/account-add.compo
     AccountQuickEditorComponent,
     MessageboxComponent,
     AccountAddComponent,
+    AccountEditFormComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpModule,
     FormsModule,
+    ReactiveFormsModule,
     NgxPaginationModule,
     NgbModule.forRoot()
   ],
-  providers: [ AccountService ],
+  providers: [ AccountService ,AccountAddEventEmitService],
   entryComponents: [
     MessageboxComponent,
-    AccountAddComponent
+    AccountAddComponent,
+    AccountEditFormComponent,
   ],
   bootstrap: [AppComponent]
 })

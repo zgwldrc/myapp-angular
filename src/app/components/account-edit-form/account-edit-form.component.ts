@@ -1,20 +1,18 @@
-import {Component, OnInit} from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
+import {Component, OnInit, Input} from '@angular/core';
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Account} from "../../models/account";
 import {AccountService} from "../../services/account.service";
 import {AccountType} from "../../models/account-type";
-import {AccountAddEventEmitService} from "../../services/account-add-event-emit.service";
-
+import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
-  selector: 'app-account-add',
-  templateUrl: 'account-add.component.html',
-  styleUrls: ['account-add.component.css'],
+  selector: 'app-account-edit-form',
+  templateUrl: 'account-edit-form.component.html',
+  styleUrls: ['account-edit-form.component.css']
 })
-export class AccountAddComponent implements OnInit {
+export class AccountEditFormComponent implements OnInit {
 
-  account: Account = new Account();
+  @Input() account: Account;
   accountForm: FormGroup;
   passwordInputType: string = 'password';
   inversePasswordInputType: string = 'show plain password';
@@ -26,52 +24,45 @@ export class AccountAddComponent implements OnInit {
   descMaxLength = 280;
   accountTypeList: AccountType[];
   constructor(
-    public activeModal: NgbActiveModal,
     private accountService: AccountService,
+    public activeModal: NgbActiveModal,
     private formBuilder: FormBuilder,
-    public accountAddEventEmitService: AccountAddEventEmitService
   ) { }
 
   ngOnInit() {
     this.accountForm = this.formBuilder.group({
-      username: ['', [
+      username: [this.account.fields.username, [
         Validators.required,
         Validators.minLength(this.usernameMinLength),
         Validators.maxLength(this.usernameMaxLength)
       ]],
-      password: ['', [
+      password: [this.account.fields.password, [
         Validators.required,
         Validators.minLength(this.passwordMinLength),
         Validators.maxLength(this.passwordMaxLength)
       ]],
-      login_url: ['', [
+      login_url: [this.account.fields.login_url, [
         Validators.required,
         Validators.maxLength(this.loginUrlMaxLength)
       ]],
-      type: ['3', [Validators.required]],
-      desc: ['', [
+      type: [this.account.fields.type, [Validators.required]],
+      desc: [this.account.fields.desc, [
         Validators.required,
         Validators.maxLength(this.descMaxLength)
       ]],
     });
 
-    this.account.fields.type = 3;
     this.accountService.getTypeList()
       .subscribe((accountTypeList: AccountType[]) => this.accountTypeList = accountTypeList);
   }
 
-  addAccount(event) {
+  updateAccount() {
     this.account.fields = this.accountForm.value;
-    this.accountService.addAccount(this.account)
-      .subscribe(data => {
-        this.accountForm.reset();
-        this.account.pk = data.id;
-        this.accountAddEventEmitService.subject.emit(this.account);
+    this.accountService.updateAccount(this.account)
+      .subscribe(any => {
+        console.log('update OK!');
+        this.activeModal.close('close');
       })
-
-    if (event.target.name == 'submitThenQuit') {
-      this.activeModal.close('Close click');
-    }
   }
 
   passwordInputTypeToggle(){

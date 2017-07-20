@@ -7,6 +7,9 @@
 }
 td {
   line-height:30px !important;
+  max-width: 15rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .selector {
   display: inline-block;

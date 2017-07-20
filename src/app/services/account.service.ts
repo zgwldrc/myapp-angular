@@ -33,4 +33,27 @@ export class AccountService {
       .map(resp => resp.json().count as number);
   }
 
+  addAccount(account: Account): Observable<any> {
+    const url = this.accountApi;
+    return this.http.post(url, JSON.stringify([account]))
+      .map(resp => resp.json())
+  }
+
+  deleteAccount(accountId: number): Observable<any> {
+    const url = this.accountApi + accountId;
+    return this.http.delete(url)
+      .map(resp => resp)
+  }
+
+  updateAccount(account: Account): Observable<any> {
+    const url = this.accountApi + account.pk;
+    return this.http.put(url,JSON.stringify([account]))
+      .map(resp => resp)
+  }
+
+  multiDelete(accountIds: number[]): Observable<any> {
+    const url = this.accountApi;
+    return;
+  }
+
 }

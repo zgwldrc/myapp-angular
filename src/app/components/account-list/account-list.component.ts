@@ -17,6 +17,8 @@ import { AccountType } from "../../models/account-type";
 import {BehaviorSubject} from "rxjs";
 import {MessageboxComponent} from "../messagebox/messagebox.component";
 import {AccountAddComponent} from "../account-add/account-add.component";
+import {AccountEditFormComponent} from "../account-edit-form/account-edit-form.component";
+import {AccountAddEventEmitService} from "../../services/account-add-event-emit.service";
 
 
 
@@ -28,7 +30,7 @@ import {AccountAddComponent} from "../account-add/account-add.component";
 })
 export class AccountListComponent implements OnInit {
 
-  account_list: Observable<Account[]>;
+  account_list: Account[];
   filter: any;
   count: number;
   accountTypeList: AccountType[];
@@ -36,7 +38,8 @@ export class AccountListComponent implements OnInit {
   constructor(
     private accountService: AccountService,
     private clipboard: ClipboardService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    public accountAddEventEmitService: AccountAddEventEmitService,
   ) { }
 
   ngOnInit() {
@@ -50,19 +53,19 @@ export class AccountListComponent implements OnInit {
     };
     this.searchTerms = new BehaviorSubject<string>(this.obj2QueryString(this.filter));
 
-    this.account_list = this.searchTerms
+    this.searchTerms
       .debounceTime(300)
       .distinctUntilChanged()
-      .do(i => this.getCount())
-      .switchMap(queryString =>
-          this.accountService.getList(queryString)
-      )
-      .catch(error => {
-        // TODO: add real error handling
-        console.log(error);
-        return Observable.of<Account[]>([]);
+      .do(queryString => this.getCount())
+      .subscribe(queryString => {
+        this.accountService.getList(queryString)
+          .subscribe(list => this.account_list=list);
       });
-
+    this.accountAddEventEmitService.subject
+      .subscribe((account: Account) => {
+        console.log('add account event received!!');
+        this.account_list.unshift(account);
+      });
     this.accountService.getTypeList()
       .subscribe((accountTypeList: AccountType[]) => this.accountTypeList = accountTypeList)
   }
@@ -105,6 +108,21 @@ export class AccountListComponent implements OnInit {
 
   addAccount(){
     this.modalService.open(AccountAddComponent);
+  }
+
+  updateAccount(account: Account){
+    let modalRef = this.modalService.open(AccountEditFormComponent);
+    modalRef.componentInstance.account = account;
+  }
+
+  delete(account: Account){
+    this.account_list.splice(this.account_list.indexOf(account),1);
+    this.accountService.deleteAccount(account.pk)
+      .subscribe(resp=> {})
+  }
+
+  findTypeById(pk){
+    return this.accountTypeList.filter(e => e.pk == pk)[0].fields.type;
   }
 
 }

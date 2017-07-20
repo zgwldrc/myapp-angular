@@ -1,12 +1,11 @@
 export class Account {
-  model: 'app.account';
+  model: string = 'app.account';
   pk: number;
   fields: {
     username: string,
     password: string,
     desc: string,
     login_url: string,
-    owner: any,
     type: any,
   };
 
@@ -15,7 +14,6 @@ export class Account {
     password: string = null,
     desc: string = null,
     login_url: string = null,
-    owner: any = null,
     type: any = null
   ){
     this.pk = null;
@@ -24,7 +22,6 @@ export class Account {
       password: password,
       desc: desc,
       login_url: login_url,
-      owner: owner,
       type: type
     };
   }
