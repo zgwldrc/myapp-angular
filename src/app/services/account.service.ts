@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import {Http, RequestOptions} from '@angular/http';
 import 'rxjs/add/operator/map';
 import {Observable} from "rxjs";
 
@@ -17,7 +17,8 @@ export class AccountService {
     queryString: string
   ): Observable<Account[]>{
     const url = this.accountApi + `?` + queryString;
-    return this.http.get(url)
+
+    return this.http.get(url, {withCredentials: true})
       .map(resp => resp.json() as Account[])
   }
 

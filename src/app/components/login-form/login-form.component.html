@@ -1,15 +1,39 @@
-<div class="login-or-registry">
-  <header>
-    <div class="login">
-      <h2>Login
-        <span class="glyphicon glyphicon-arrow-down"></span>
-      </h2>
+<div id="form-container" class="row justify-content-end">
+  <form [formGroup]="loginForm" class="col-3" novalidate (ngSubmit)="auth()">
+    <h2>Login</h2>
+    <div class="alert-danger" *ngIf="errMsg">{{errMsg}}</div>
+    <div class="form-group"
+         [class.has-success]="loginForm.get('username').valid"
+         [class.has-danger]="loginForm.get('username').errors && loginForm.get('username').touched">
+      <input type="text" class="form-control" id="username" placeholder="用户名："
+             formControlName="username"
+             [class.form-control-success]="loginForm.get('username').valid"
+             [class.form-control-danger]="loginForm.get('username').errors && loginForm.get('username').touched">
+      <div *ngIf="loginForm.get('username').hasError('minlength') && loginForm.get('username').touched"
+           class="form-control-feedback">
+        要求最小长度{{usernameMinLength}}
+      </div>
+      <div *ngIf="loginForm.get('username').hasError('maxlength') && loginForm.get('username').touched"
+           class="form-control-feedback">
+        限制最大长度{{usernameMaxLength}}
+      </div>
     </div>
-    <div class="registry">
-      <h2>Registry
-        <span class="glyphicon glyphicon-arrow-down"></span>
-      </h2>
+    <div class="form-group"
+         [class.has-success]="loginForm.get('password').valid"
+         [class.has-danger]="loginForm.get('password').errors && loginForm.get('password').touched">
+      <input type="password" class="form-control" id="password" placeholder="密码："
+             formControlName="password"
+             [class.form-control-success]="loginForm.get('password').valid"
+             [class.form-control-danger]="loginForm.get('password').errors && loginForm.get('password').touched">
+      <div *ngIf="loginForm.get('password').hasError('minlength') && loginForm.get('password').touched"
+           class="form-control-feedback">
+        要求最小长度{{passwordMinLength}}
+      </div>
+      <div *ngIf="loginForm.get('password').hasError('maxlength') && loginForm.get('password').touched"
+           class="form-control-feedback">
+        限制最大长度{{passwordMaxLength}}
+      </div>
     </div>
-  </header>
-  <div class="form-content"></div>
+    <button class="form-control btn btn-primary">登陆</button>
+  </form>
 </div>

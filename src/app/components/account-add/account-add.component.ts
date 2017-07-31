@@ -67,7 +67,7 @@ export class AccountAddComponent implements OnInit {
         this.accountForm.reset();
         this.account.pk = data.id;
         this.accountAddEventEmitService.subject.emit(this.account);
-      })
+      });
 
     if (event.target.name == 'submitThenQuit') {
       this.activeModal.close('Close click');
@@ -92,7 +92,4 @@ export class AccountAddComponent implements OnInit {
       password += possible.charAt(Math.floor(Math.random() * possible.length));
     this.accountForm.get('password').setValue(password);
   }
-
-
-
 }

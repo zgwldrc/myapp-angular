@@ -16,6 +16,8 @@ import { MessageboxComponent } from '../components/messagebox/messagebox.compone
 import { AccountAddComponent } from '../components/account-add/account-add.component';
 import { AccountEditFormComponent } from '../components/account-edit-form/account-edit-form.component';
 import {AccountAddEventEmitService} from "../services/account-add-event-emit.service";
+import {AuthService} from "../services/auth.service";
+import {CookieModule} from "ngx-cookie";
 
 
 
@@ -36,9 +38,14 @@ import {AccountAddEventEmitService} from "../services/account-add-event-emit.ser
     FormsModule,
     ReactiveFormsModule,
     NgxPaginationModule,
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    CookieModule.forRoot()
   ],
-  providers: [ AccountService ,AccountAddEventEmitService],
+  providers: [
+    AuthService,
+    AccountService,
+    AccountAddEventEmitService
+  ],
   entryComponents: [
     MessageboxComponent,
     AccountAddComponent,
