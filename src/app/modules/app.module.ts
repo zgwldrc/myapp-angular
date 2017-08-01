@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {NgModule, ErrorHandler} from '@angular/core';
 import { HttpModule } from "@angular/http";
 import {ReactiveFormsModule, FormsModule} from "@angular/forms";
 
@@ -18,7 +18,8 @@ import { AccountEditFormComponent } from '../components/account-edit-form/accoun
 import {AccountAddEventEmitService} from "../services/account-add-event-emit.service";
 import {AuthService} from "../services/auth.service";
 import {CookieModule} from "ngx-cookie";
-
+import {CustomErrorHandler} from "../custom-error-handler";
+import { AuthGuard } from '../guards/auth.guard';
 
 
 @NgModule({
@@ -44,7 +45,9 @@ import {CookieModule} from "ngx-cookie";
   providers: [
     AuthService,
     AccountService,
-    AccountAddEventEmitService
+    AccountAddEventEmitService,
+    AuthGuard,
+    {provide: ErrorHandler, useClass: CustomErrorHandler}
   ],
   entryComponents: [
     MessageboxComponent,

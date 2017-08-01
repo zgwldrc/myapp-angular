@@ -1,4 +1,4 @@
-import {Injectable, EventEmitter} from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { Account } from "../models/account";
 
 @Injectable()

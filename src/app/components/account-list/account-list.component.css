@@ -2,7 +2,7 @@
   padding: 20px;
   min-height:80px;
   margin-bottom: 35px;
-  background-color: #e0e0e0;
+  background-color: rgba(0,0,0,0.1);
   box-shadow: 5px 5px 5px grey;
 }
 td {

@@ -1,31 +1,36 @@
 /**
  * Created by xiayu on 2017/7/30.
  */
-import {Injectable} from "@angular/core";
-import {Http, Response, RequestOptions} from "@angular/http";
+import {Injectable, OnInit} from "@angular/core";
+import {Http, Response} from "@angular/http";
 import {environment} from "../../environments/environment";
 import {Observable} from "rxjs";
 import 'rxjs/add/operator/map';
-import {User} from "../models/user";
-import {CookieService} from "ngx-cookie";
 
 @Injectable()
-export class AuthService {
-  isAuthed: boolean = false;
+export class AuthService implements OnInit {
+  isAuthed: boolean;
 
   constructor(
-    private http: Http,
-    private cookieService: CookieService,
+    private http: Http
   ){
+    if (localStorage.getItem('authed')) {
+      this.isAuthed = true;
+    } else {
+      this.isAuthed = false;
+    }
+  }
+
+  ngOnInit(){
 
   }
 
-  auth(user: any): Observable<any>{
-    return this.http.post(environment.loginApi, JSON.stringify(user))
-      .map((r: Response)=> {
-        console.log(this.cookieService.getAll());
-        console.log('login OK!');return r;
-      })
+  auth(user: any): Observable<Response>{
+    return this.http.post(environment.loginApi, JSON.stringify(user),{withCredentials: true})
+  }
+
+  logout(): Observable<Response> {
+    return this.http.post(environment.logoutApi,'', {withCredentials: true})
   }
 
 }

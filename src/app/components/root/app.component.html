@@ -1,6 +1,5 @@
-<nav class="navbar navbar-toggleable-md bg-faded fixed-top">
+<nav class="navbar navbar-light bg-faded navbar-toggleable-sm fixed-top">
   <div class="container">
-    <div class="navbar-header">
       <button type="button"
               class="navbar-toggler"
               data-toggle="collapse"
@@ -8,13 +7,21 @@
         <span class="navbar-toggler-icon"></span>
 
       </button>
-      <a class="navbar-brand" routerLink="/">Small Project</a>
-    </div>
-    <div id="navbar" class="collapse navbar-collapse">
+      <a class="navbar-brand" routerLink="/">Lazy Leopard</a>
+
+    <div class="collapse navbar-collapse" id="navbar">
       <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-        <li class="nav-item"><a class="nav-link" routerLink="account">Account Manager</a></li>
+        <li class="nav-item" *ngIf="authService.isAuthed">
+          <a routerLink="account" routerLinkActive="active" class="nav-link">Account Manager</a>
+        </li>
+
       </ul>
-    </div><!--/.nav-collapse -->
+      <ul class="navbar-nav">
+        <li>
+          <a *ngIf="authService.isAuthed"  routerLink="/login" class="nav-link">Log out</a>
+        </li>
+      </ul>
+    </div>
   </div>
 </nav>
 

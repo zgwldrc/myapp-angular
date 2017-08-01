@@ -19,6 +19,7 @@ import {MessageboxComponent} from "../messagebox/messagebox.component";
 import {AccountAddComponent} from "../account-add/account-add.component";
 import {AccountEditFormComponent} from "../account-edit-form/account-edit-form.component";
 import {AccountAddEventEmitService} from "../../services/account-add-event-emit.service";
+import {Router} from "@angular/router";
 
 
 
@@ -39,6 +40,7 @@ export class AccountListComponent implements OnInit {
     private accountService: AccountService,
     private clipboard: ClipboardService,
     private modalService: NgbModal,
+    private router: Router,
     public accountAddEventEmitService: AccountAddEventEmitService,
   ) { }
 
@@ -57,10 +59,15 @@ export class AccountListComponent implements OnInit {
       .debounceTime(300)
       .distinctUntilChanged()
       .do(queryString => this.getCount())
-      .subscribe(queryString => {
-        this.accountService.getList(queryString)
-          .subscribe(list => this.account_list=list);
-      });
+      .subscribe(
+        queryString => {
+          this.accountService.getList(queryString)
+            .subscribe(
+              list => this.account_list=list
+            )
+        }
+      );
+
     this.accountAddEventEmitService.subject
       .subscribe((account: Account) => {
         console.log('add account event received!!');

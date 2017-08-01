@@ -31,6 +31,12 @@ export class LoginFormComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.authService.logout().subscribe(
+      success => {
+        this.authService.isAuthed = false;
+        localStorage.removeItem('authed');
+      }
+    )
 
     this.loginForm = this.formBuilder.group({
       username: ['',[
@@ -50,7 +56,9 @@ export class LoginFormComponent implements OnInit {
     this.user = this.loginForm.value;
     this.authService.auth(this.user)
       .subscribe(
-        () => {
+        (success) => {
+          this.authService.isAuthed = true;
+          localStorage.setItem('authed', 'true');
           this.router.navigate(['/account']);
         },
         (error: Response ) => {

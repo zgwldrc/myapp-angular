@@ -18,9 +18,7 @@ export class AccountAddComponent implements OnInit {
   accountForm: FormGroup;
   passwordInputType: string = 'password';
   inversePasswordInputType: string = 'show plain password';
-  usernameMinLength = 5;
   usernameMaxLength = 20;
-  passwordMinLength = 8;
   passwordMaxLength = 100;
   loginUrlMaxLength = 100;
   descMaxLength = 280;
@@ -36,12 +34,10 @@ export class AccountAddComponent implements OnInit {
     this.accountForm = this.formBuilder.group({
       username: ['', [
         Validators.required,
-        Validators.minLength(this.usernameMinLength),
         Validators.maxLength(this.usernameMaxLength)
       ]],
       password: ['', [
         Validators.required,
-        Validators.minLength(this.passwordMinLength),
         Validators.maxLength(this.passwordMaxLength)
       ]],
       login_url: ['', [

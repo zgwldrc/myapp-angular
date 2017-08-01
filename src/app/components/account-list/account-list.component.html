@@ -43,29 +43,31 @@
     <button class="btn btn-sm btn-success selector" (click)="addAccount()">新增账户</button>
   </div>
 
+  <table class="table table-striped table-hover">
+    <tr><th>ID</th><th>用户名</th><th>密码</th><th>登陆到</th><th>备注描述</th><th>类型</th><th>控制组</th></tr>
+    <tr *ngFor="let account of account_list | paginate: { id: 'server', itemsPerPage: filter.page_size, currentPage: filter.page, totalItems: count }">
+      <td>{{account.pk}}</td>
+      <td>{{account.fields.username}}</td>
+      <td><button class="btn btn-sm btn-primary" (click)="copyToClipBoard(account.fields.password)">点我复制</button></td>
+      <td>{{account.fields.login_url}}</td>
+      <td>{{account.fields.desc}}</td>
+      <td>{{findTypeById(account.fields.type)}}</td>
+      <td>
+        <div class="btn-group-sm">
+          <button type='button' class="btn btn-sm btn-primary"
+                  (click)="updateAccount(account)">编辑</button>
+          <button type="button" class="btn btn-sm btn-danger"
+                  (click)="delete(account)">删除</button>
+        </div>
+      </td>
+    </tr>
+  </table>
+  <div class="has-text-centered">
+
+    <pagination-controls id="server" (pageChange)="filter.page = $event;search()"></pagination-controls>
+
+  </div>
+
 </div>
 
-<table class="table table-striped table-hover">
-  <tr><th>ID</th><th>用户名</th><th>密码</th><th>登陆到</th><th>备注描述</th><th>类型</th><th>控制组</th></tr>
-  <tr *ngFor="let account of account_list | paginate: { id: 'server', itemsPerPage: filter.page_size, currentPage: filter.page, totalItems: count }">
-    <td>{{account.pk}}</td>
-    <td>{{account.fields.username}}</td>
-    <td><button class="btn btn-sm btn-primary" (click)="copyToClipBoard(account.fields.password)">点我复制</button></td>
-    <td>{{account.fields.login_url}}</td>
-    <td>{{account.fields.desc}}</td>
-    <td>{{findTypeById(account.fields.type)}}</td>
-    <td>
-      <div class="btn-group-sm">
-        <button type='button' class="btn btn-sm btn-primary"
-        (click)="updateAccount(account)">编辑</button>
-        <button type="button" class="btn btn-sm btn-danger"
-        (click)="delete(account)">删除</button>
-      </div>
-    </td>
-  </tr>
-</table>
-<div class="has-text-centered">
 
-  <pagination-controls id="server" (pageChange)="filter.page = $event;search()"></pagination-controls>
-
-</div>
