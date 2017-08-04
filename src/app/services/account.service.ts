@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Http} from '@angular/http';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/do';
 import {Observable} from "rxjs";
 
 import { Account } from '../models/account';
@@ -26,9 +27,13 @@ export class AccountService {
   }
 
   getTypeList(): Observable<AccountType[]> {
+    if (sessionStorage.getItem('account_types')){
+      return Observable.of(JSON.parse(sessionStorage.getItem('account_types')))
+    }
     const url = this.accountApi + 'typelist/';
     return this.http.get(url,{withCredentials: true})
-      .map(resp => resp.json() as AccountType[]);
+      .map(resp => resp.json() as AccountType[])
+      .do(data => sessionStorage.setItem('account_types', JSON.stringify(data)));
   }
 
   getCount(): Observable<number> {

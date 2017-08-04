@@ -5,14 +5,10 @@
     <div class="form-group"
          [class.has-success]="loginForm.get('username').valid"
          [class.has-danger]="loginForm.get('username').errors && loginForm.get('username').touched">
-      <input type="text" class="form-control" id="username" placeholder="用户名："
+      <input type="email" class="form-control" id="username" placeholder="Email："
              formControlName="username"
              [class.form-control-success]="loginForm.get('username').valid"
              [class.form-control-danger]="loginForm.get('username').errors && loginForm.get('username').touched">
-      <div *ngIf="loginForm.get('username').hasError('minlength') && loginForm.get('username').touched"
-           class="form-control-feedback">
-        要求最小长度{{usernameMinLength}}
-      </div>
       <div *ngIf="loginForm.get('username').hasError('maxlength') && loginForm.get('username').touched"
            class="form-control-feedback">
         限制最大长度{{usernameMaxLength}}
@@ -25,10 +21,7 @@
              formControlName="password"
              [class.form-control-success]="loginForm.get('password').valid"
              [class.form-control-danger]="loginForm.get('password').errors && loginForm.get('password').touched">
-      <div *ngIf="loginForm.get('password').hasError('minlength') && loginForm.get('password').touched"
-           class="form-control-feedback">
-        要求最小长度{{passwordMinLength}}
-      </div>
+
       <div *ngIf="loginForm.get('password').hasError('maxlength') && loginForm.get('password').touched"
            class="form-control-feedback">
         限制最大长度{{passwordMaxLength}}

@@ -1,0 +1,56 @@
+<div id="form-container" class="row justify-content-end">
+  <form [formGroup]="registerForm" class="col-3" novalidate (ngSubmit)="register()">
+    <h2>Registry</h2>
+    <div class="alert-danger" *ngIf="errMsg">{{errMsg}}</div>
+    <div class="form-group"
+         [class.has-success]="registerForm.get('username').valid"
+         [class.has-danger]="registerForm.get('username').errors && registerForm.get('username').touched">
+      <input type="email" class="form-control" id="username" placeholder="Email："
+             formControlName="username" (keyup)="nextUserName()" (blur)="nextUserName()"
+             [class.form-control-success]="registerForm.get('username').valid"
+             [class.form-control-danger]="registerForm.get('username').errors && registerForm.get('username').touched">
+      <div *ngIf="debug">{{registerForm.get('username').errors|json}} {{userExistence}}</div>
+      <div *ngIf="registerForm.get('username').hasError('userExistence') && registerForm.get('username').touched"
+           class="form-control-feedback">
+        {{registerForm.get('username').errors.userExistence}}
+      </div>
+      <div *ngIf="registerForm.get('username').hasError('maxlength') && registerForm.get('username').touched"
+           class="form-control-feedback">
+        限制最大长度{{usernameMaxLength}}
+      </div>
+      <div *ngIf="registerForm.get('username').hasError('email') && registerForm.get('username').touched"
+           class="form-control-feedback">
+        必须是一个有效的Email格式
+      </div>
+    </div>
+    <div class="form-group"
+         [class.has-success]="registerForm.get('password').valid"
+         [class.has-danger]="registerForm.get('password').errors && registerForm.get('password').touched">
+      <input type="password" class="form-control" id="password" placeholder="密码："
+             formControlName="password"
+             [class.form-control-success]="registerForm.get('password').valid"
+             [class.form-control-danger]="registerForm.get('password').errors && registerForm.get('password').touched">
+      <div *ngIf="debug">{{registerForm.get('password').errors|json}}</div>
+      <div *ngIf="registerForm.get('password').hasError('maxlength') && registerForm.get('password').touched"
+           class="form-control-feedback">
+        限制最大长度{{passwordMaxLength}}
+      </div>
+    </div>
+    <div class="form-group"
+         [class.has-success]="registerForm.get('passwordAgain').valid"
+         [class.has-danger]="registerForm.get('passwordAgain').errors && registerForm.get('passwordAgain').touched">
+      <input type="password" class="form-control" id="passwordAgain" placeholder="再次输入密码："
+             formControlName="passwordAgain"
+             [class.form-control-success]="registerForm.get('passwordAgain').valid"
+             [class.form-control-danger]="registerForm.get('passwordAgain').errors && registerForm.get('passwordAgain').touched">
+      <div *ngIf="debug">{{registerForm.get('passwordAgain').errors|json}}</div>
+      <div *ngIf="registerForm.get('passwordAgain').hasError('passwordAgainError') && registerForm.get('passwordAgain').touched"
+           class="form-control-feedback">
+        {{registerForm.get('passwordAgain').errors.passwordAgainError}}
+      </div>
+
+    </div>
+
+    <button class="form-control btn btn-primary" [disabled]="registerForm.invalid">注册</button>
+  </form>
+</div>

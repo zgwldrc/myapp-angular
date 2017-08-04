@@ -6,6 +6,7 @@ import {Http, Response} from "@angular/http";
 import {environment} from "../../environments/environment";
 import {Observable} from "rxjs";
 import 'rxjs/add/operator/map';
+import {User} from "../models/user";
 
 @Injectable()
 export class AuthService implements OnInit {
@@ -25,8 +26,12 @@ export class AuthService implements OnInit {
 
   }
 
-  auth(user: any): Observable<Response>{
-    return this.http.post(environment.loginApi, JSON.stringify(user),{withCredentials: true})
+  auth(user: User): Observable<Response>{
+    return this.http.post(environment.loginApi, JSON.stringify([user]),{withCredentials: true})
+      .do( r => {
+        this.isAuthed = true;
+        localStorage.setItem('authed', 'true');
+      });
   }
 
   logout(): Observable<Response> {

@@ -1,9 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { HttpModule } from "@angular/http";
-import {ReactiveFormsModule, FormsModule} from "@angular/forms";
+import { ReactiveFormsModule, FormsModule} from "@angular/forms";
 
-import { NgxPaginationModule } from 'ngx-pagination/dist/ngx-pagination.d.ts';
+import { NgxPaginationModule } from 'ngx-pagination/dist/ngx-pagination';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from '../components/root/app.component';
@@ -11,15 +11,16 @@ import { LoginFormComponent } from '../components/login-form/login-form.componen
 import { AccountListComponent } from '../components/account-list/account-list.component';
 import { AppRoutingModule } from "./app-routing.module";
 import { AccountService } from "../services/account.service";
-import { AccountQuickEditorComponent } from '../components/account-quick-editor/account-quick-editor.component';
 import { MessageboxComponent } from '../components/messagebox/messagebox.component';
-import { AccountAddComponent } from '../components/account-add/account-add.component';
-import { AccountEditFormComponent } from '../components/account-edit-form/account-edit-form.component';
 import {AccountAddEventEmitService} from "../services/account-add-event-emit.service";
 import {AuthService} from "../services/auth.service";
 import {CookieModule} from "ngx-cookie";
 import {CustomErrorHandler} from "../custom-error-handler";
 import { AuthGuard } from '../guards/auth.guard';
+import {AccountFormComponent} from "../components/account-form/account-form.component";
+import {RegisterFormComponent} from "../components/register-form/register-form.component";
+import {LoginRegistryTabsetComponent} from "../components/login-registry-tabset/login-registry-tabset.component";
+import {UserService} from "../services/user.service";
 
 
 @NgModule({
@@ -27,10 +28,10 @@ import { AuthGuard } from '../guards/auth.guard';
     AppComponent,
     LoginFormComponent,
     AccountListComponent,
-    AccountQuickEditorComponent,
     MessageboxComponent,
-    AccountAddComponent,
-    AccountEditFormComponent,
+    AccountFormComponent,
+    RegisterFormComponent,
+    LoginRegistryTabsetComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,6 +45,7 @@ import { AuthGuard } from '../guards/auth.guard';
   ],
   providers: [
     AuthService,
+    UserService,
     AccountService,
     AccountAddEventEmitService,
     AuthGuard,
@@ -51,8 +53,7 @@ import { AuthGuard } from '../guards/auth.guard';
   ],
   entryComponents: [
     MessageboxComponent,
-    AccountAddComponent,
-    AccountEditFormComponent,
+    AccountFormComponent,
   ],
   bootstrap: [AppComponent]
 })

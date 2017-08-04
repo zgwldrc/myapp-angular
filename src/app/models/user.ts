@@ -8,5 +8,6 @@ export class User {
   fields: any = {
     username: '',
     password: '',
+    email: ''
   };
 }

@@ -14,12 +14,10 @@ import {CookieService} from "ngx-cookie";
   styleUrls: ['login-form.component.css']
 })
 export class LoginFormComponent implements OnInit {
-  user: any = {};
+  user: User = new User();
   errMsg: string;
   loginForm: FormGroup;
-  usernameMinLength: number = 4;
   usernameMaxLength: number = 30;
-  passwordMinLength: number = 6;
   passwordMaxLength: number = 30;
 
 
@@ -27,12 +25,11 @@ export class LoginFormComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private formBuilder: FormBuilder,
-    private cookieService: CookieService
   ) {}
 
   ngOnInit() {
     this.authService.logout().subscribe(
-      success => {
+      () => {
         this.authService.isAuthed = false;
         localStorage.removeItem('authed');
       }
@@ -41,24 +38,22 @@ export class LoginFormComponent implements OnInit {
     this.loginForm = this.formBuilder.group({
       username: ['',[
         Validators.required,
-        Validators.minLength(this.usernameMinLength),
+        Validators.email,
         Validators.maxLength(this.usernameMaxLength)
       ]],
       password: ['',[
         Validators.required,
-        Validators.minLength(this.passwordMinLength),
         Validators.maxLength(this.passwordMaxLength)
       ]],
     })
   }
 
   auth(){
-    this.user = this.loginForm.value;
+    this.user.fields = this.loginForm.value;
     this.authService.auth(this.user)
       .subscribe(
-        (success) => {
-          this.authService.isAuthed = true;
-          localStorage.setItem('authed', 'true');
+        (r) => {
+          console.log(r);
           this.router.navigate(['/account']);
         },
         (error: Response ) => {

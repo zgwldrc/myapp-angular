@@ -7,5 +7,6 @@ export const environment = {
   production: false,
   loginApi: 'http://localhost:8000/api/login/',
   logoutApi: 'http://localhost:8000/api/logout/',
-  accountApi: 'http://localhost:8000/api/account/'
+  accountApi: 'http://localhost:8000/api/account/',
+  userApi: 'http://localhost:8000/api/user/'
 };

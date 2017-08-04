@@ -2,14 +2,6 @@ form {
   margin: 5rem;
 }
 
-#form-container {
-  height: 768px;
-  background-image: url("../../../assets/lazy-leopard-hd-wallpaper.jpg");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
 h2 {
   text-shadow: .7rem .7rem .7rem rgba(0,0,0,.1);
   color: grey;

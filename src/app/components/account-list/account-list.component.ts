@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable }        from 'rxjs/Observable';
+import {Router} from "@angular/router";
 import { Subject }           from 'rxjs/Subject';
+import {BehaviorSubject} from "rxjs";
 // Observable operators
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/debounceTime';
@@ -11,15 +12,11 @@ import { ClipboardService } from 'ng2-clipboard/ng2-clipboard';
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 
 import { AccountService } from "../../services/account.service";
-
 import { Account } from "../../models/account";
 import { AccountType } from "../../models/account-type";
-import {BehaviorSubject} from "rxjs";
 import {MessageboxComponent} from "../messagebox/messagebox.component";
-import {AccountAddComponent} from "../account-add/account-add.component";
-import {AccountEditFormComponent} from "../account-edit-form/account-edit-form.component";
 import {AccountAddEventEmitService} from "../../services/account-add-event-emit.service";
-import {Router} from "@angular/router";
+import {AccountFormComponent} from "../account-form/account-form.component";
 
 
 
@@ -114,11 +111,16 @@ export class AccountListComponent implements OnInit {
   }
 
   addAccount(){
-    this.modalService.open(AccountAddComponent);
+    let modalRef = this.modalService.open(AccountFormComponent);
+    modalRef.componentInstance.formTitle = 'Account Add';
+    modalRef.componentInstance.formType = 'add';
   }
 
   updateAccount(account: Account){
-    let modalRef = this.modalService.open(AccountEditFormComponent);
+    let modalRef = this.modalService.open(AccountFormComponent);
+    modalRef.componentInstance.formTitle = 'Account Edit';
+    modalRef.componentInstance.formType = 'edit';
+
     modalRef.componentInstance.account = account;
   }
 

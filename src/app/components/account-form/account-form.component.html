@@ -2,7 +2,7 @@
   <button class="close" (click)="activeModal.dismiss('Cross click')">
     <span>x</span>
   </button>
-  <h4 class="modal-title">Account Add</h4>
+  <h4 class="modal-title">{{formTitle}}</h4>
 </div>
 <div class="modal-body">
   <form [formGroup]="accountForm">
@@ -15,10 +15,7 @@
              [class.form-control-success]="accountForm.get('username').valid"
              [class.form-control-danger]="accountForm.get('username').errors && accountForm.get('username').touched"
              id="username" class="form-control">
-      <div *ngIf="accountForm.get('username').hasError('minlength')"
-        class="form-control-feedback">
-        要求最小长度{{usernameMinLength}}
-      </div>
+
       <div *ngIf="accountForm.get('username').hasError('maxlength')"
            class="form-control-feedback">
         限制最大长度{{usernameMaxLength}}
@@ -39,10 +36,7 @@
              [class.form-control-success]="accountForm.get('password').valid"
              [class.form-control-danger]="accountForm.get('password').errors && accountForm.get('password').touched"
       >
-      <div *ngIf="accountForm.get('password').hasError('minlength')"
-           class="form-control-feedback">
-        要求最小长度{{passwordMinLength}}
-      </div>
+
       <div *ngIf="accountForm.get('password').hasError('maxlength')"
            class="form-control-feedback">
         限制最大长度{{passwordMaxLength}}
@@ -94,8 +88,8 @@
   </form>
 </div>
 
-<div class="modal-footer clear-float">
-  <div class="btn-group btn-toolbar">
+<div class="modal-footer">
+  <div *ngIf="formType == 'add'" class="btn-group btn-toolbar">
     <button type="button" class="btn btn-outline-success" name="submitThenGoOn"
             [disabled]="accountForm.invalid"
             (click)="addAccount($event)">
@@ -105,6 +99,13 @@
             [disabled]="accountForm.invalid"
             (click)="addAccount($event)">
       提交->关闭
+    </button>
+  </div>
+  <div *ngIf="formType == 'edit'" class="modal-footer">
+    <button type="button" class="btn btn-outline-success form-control"
+            (click)="updateAccount()"
+            [disabled]="accountForm.invalid">
+      保存->退出
     </button>
   </div>
 </div>
