@@ -1,9 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
-import {NgModule, ErrorHandler} from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { HttpModule } from "@angular/http";
 import {ReactiveFormsModule, FormsModule} from "@angular/forms";
 
-import { NgxPaginationModule } from 'ngx-pagination';
+import { NgxPaginationModule } from 'ngx-pagination/dist/ngx-pagination.d.ts';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from '../components/root/app.component';
