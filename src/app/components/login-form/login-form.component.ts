@@ -28,12 +28,7 @@ export class LoginFormComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.authService.logout().subscribe(
-      () => {
-        this.authService.isAuthed = false;
-        localStorage.removeItem('authed');
-      }
-    )
+
 
     this.loginForm = this.formBuilder.group({
       username: ['',[

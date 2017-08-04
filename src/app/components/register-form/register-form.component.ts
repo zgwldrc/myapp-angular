@@ -52,8 +52,6 @@ export class RegisterFormComponent implements OnInit {
     this.usernameSubject = new Subject<string>();
     this.validationErrorSubject = new Subject<ValidationErrors>();
 
-
-
     this.registerForm = this.formBuilder.group({
       username: ['',[
         this.usernameExistenceValidatorFactory(),

@@ -18,7 +18,7 @@ export class AccountFormComponent implements OnInit {
   formTitle: string;
   formType: string;
 
-  account: Account;
+  account: Account = new Account();
   accountTypeList: AccountType[];
 
   accountForm: FormGroup;

@@ -11,6 +11,7 @@ import {User} from "../models/user";
 @Injectable()
 export class AuthService implements OnInit {
   isAuthed: boolean;
+  user: User;
 
   constructor(
     private http: Http
@@ -26,9 +27,11 @@ export class AuthService implements OnInit {
 
   }
 
-  auth(user: User): Observable<Response>{
+  auth(user: User): Observable<User[]>{
     return this.http.post(environment.loginApi, JSON.stringify([user]),{withCredentials: true})
-      .do( r => {
+      .map(r => r.json()[0])
+      .do( user => {
+        this.user = user;
         this.isAuthed = true;
         localStorage.setItem('authed', 'true');
       });

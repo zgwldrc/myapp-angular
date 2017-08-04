@@ -16,9 +16,11 @@
         </li>
 
       </ul>
-      <ul class="navbar-nav">
-        <li>
-          <a *ngIf="authService.isAuthed"  routerLink="/login" class="nav-link">Log out</a>
+
+      <ul *ngIf="authService.isAuthed" class="navbar-nav">
+        <li><a class="nav-link"><span>Welcome{{authService.user.fields.username}}</span></a></li>
+        <li >
+          <a class="nav-link" (click)="authService.logout()">Log out</a>
         </li>
       </ul>
     </div>

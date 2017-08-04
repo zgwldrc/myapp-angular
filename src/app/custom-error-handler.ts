@@ -12,7 +12,7 @@ export class CustomErrorHandler implements ErrorHandler {
   public handleError(error: any): void {
     if (error instanceof Response) {
       if (error.status == 401) {
-        window.location.href = '/#login';
+        window.location.href = '/';
         this.authService.isAuthed = false;
         localStorage.removeItem('authed')
       }
