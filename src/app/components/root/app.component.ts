@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {AuthService} from "../../services/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -7,6 +8,13 @@ import {AuthService} from "../../services/auth.service";
   styleUrls: ['app.component.css']
 })
 export class AppComponent {
-  constructor(public authService: AuthService){}
-  title = 'app';
+  constructor(private authService: AuthService, private router: Router){}
+  title = 'Lazy Leopard';
+
+  logout(){
+    this.authService.logout()
+      .subscribe(() => {
+        this.router.navigateByUrl('/login');
+      })
+  }
 }

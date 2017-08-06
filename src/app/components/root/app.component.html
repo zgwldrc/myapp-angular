@@ -9,18 +9,18 @@
       </button>
       <a class="navbar-brand" routerLink="/">Lazy Leopard</a>
 
-    <div class="collapse navbar-collapse" id="navbar">
-      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-        <li class="nav-item" *ngIf="authService.isAuthed">
-          <a routerLink="account" routerLinkActive="active" class="nav-link">Account Manager</a>
+    <div class="navbar-collapse" id="navbar">
+      <ul class="navbar-nav mt-2 mt-lg-0 col-12" *ngIf="authService.isAuthed">
+        <li class="mr-auto">
+          <a class="nav-link" routerLink="account" routerLinkActive="active">Account Manager</a>
         </li>
-
-      </ul>
-
-      <ul *ngIf="authService.isAuthed" class="navbar-nav">
-        <li><a class="nav-link"><span>Welcome{{authService.user.fields.username}}</span></a></li>
-        <li >
-          <a class="nav-link" (click)="authService.logout()">Log out</a>
+        <li>
+          <span class="nav-link">
+            Welcome {{authService.user.fields.username}}
+          </span>
+        </li>
+        <li>
+          <a class="nav-link" (click)="logout()">Logout</a>
         </li>
       </ul>
     </div>
