@@ -17,7 +17,7 @@ export class LoginRegistryTabsetComponent implements OnInit{
   ){
 
   }
-  ngOnInit() {
+  ngOnInit(){
     if (this.authService.isAuthed){
       this.router.navigateByUrl('/account');
     }

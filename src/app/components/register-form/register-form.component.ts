@@ -76,10 +76,12 @@ export class RegisterFormComponent implements OnInit {
         this.userService.checkUserExistence(username)
           .subscribe(
             (suc) => {
+              console.log('user exists already...');
               this.userExistence = true;
               this.registerForm.get('username').updateValueAndValidity();
             },
             (err) => {
+              console.log('this account is available...');
               this.userExistence = false;
               this.registerForm.get('username').updateValueAndValidity();
             }

@@ -23,10 +23,7 @@ export class UserService {
     return this.http.post(this.userApi, JSON.stringify([user]),{withCredentials: true})
   }
 
-  checkUserExistence(username: string): Observable<User>{
-    return this.http.get(this.userApi + `?username=${username}`)
-      .map((r: Response) => {
-        return r.json()[0];
-      });
+  checkUserExistence(username: string): Observable<Response>{
+    return this.http.get(this.userApi + `?username=${username}`);
   }
 }

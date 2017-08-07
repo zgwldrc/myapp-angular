@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AccountListComponent } from "../components/account-list/account-list.component";
 import { AuthGuard } from "../guards/auth.guard";
-import {LoginRegistryTabsetComponent} from "../components/login-registry-tabset/login-registry-tabset.component";
+import { LoginRegistryTabsetComponent } from "../components/login-registry-tabset/login-registry-tabset.component";
 
 @NgModule({
   imports: [
