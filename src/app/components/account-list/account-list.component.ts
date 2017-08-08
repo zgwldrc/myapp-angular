@@ -37,7 +37,6 @@ export class AccountListComponent implements OnInit {
     private accountService: AccountService,
     private clipboard: ClipboardService,
     private modalService: NgbModal,
-    private router: Router,
     public accountAddEventEmitService: AccountAddEventEmitService,
   ) { }
 
@@ -50,19 +49,18 @@ export class AccountListComponent implements OnInit {
       login_to: null,
       order_by: null
     };
-    this.searchTerms = new BehaviorSubject<string>(this.obj2QueryString(this.filter));
+    this.searchTerms = new BehaviorSubject<string>(this.obj2QueryString());
 
     this.searchTerms
       .debounceTime(300)
       .distinctUntilChanged()
-      .do(queryString => this.getCount())
-      .subscribe(
+      .do(queryString => this.getCount(queryString))
+      .switchMap(
         queryString => {
-          this.accountService.getList(queryString)
-            .subscribe(
-              list => this.account_list=list
-            )
+          return this.accountService.getList(queryString);
         }
+      ).subscribe(
+        list => this.account_list=list
       );
 
     this.accountAddEventEmitService.subject
@@ -74,17 +72,18 @@ export class AccountListComponent implements OnInit {
       .subscribe((accountTypeList: AccountType[]) => this.accountTypeList = accountTypeList)
   }
 
-  private obj2QueryString(obj){
+  private obj2QueryString(){
+    let obj = this.filter;
     let queryString: string[] = [];
     for (let key in obj) {
-      if (obj[key] !== null)
+      if (obj[key] !== null && obj[key] !== '')
         queryString.push(`${key}=${obj[key]}`)
     }
     return queryString.join('&')
   }
 
   search(){
-    this.searchTerms.next(this.obj2QueryString(this.filter));
+    this.searchTerms.next(this.obj2QueryString());
   }
 
   reset(){
@@ -99,8 +98,8 @@ export class AccountListComponent implements OnInit {
     this.search();
   }
 
-  getCount() {
-    this.accountService.getCount()
+  getCount(queryString: string) {
+    this.accountService.getCount(queryString)
       .subscribe(count => this.count = count)
   }
 
@@ -124,10 +123,10 @@ export class AccountListComponent implements OnInit {
     modalRef.componentInstance.account = account;
   }
 
-  delete(account: Account){
+  del(account: Account){
     this.account_list.splice(this.account_list.indexOf(account),1);
     this.accountService.deleteAccount(account.pk)
-      .subscribe(resp=> {})
+      .subscribe(() => {})
   }
 
   findTypeById(pk){

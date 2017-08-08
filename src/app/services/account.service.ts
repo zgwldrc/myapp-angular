@@ -36,8 +36,8 @@ export class AccountService {
       .do(data => sessionStorage.setItem('account_types', JSON.stringify(data)));
   }
 
-  getCount(): Observable<number> {
-    const url = this.accountApi + 'count/';
+  getCount(queryString: string): Observable<number> {
+    const url = this.accountApi + 'count/' + `?` + queryString;
     return this.http.get(url,{withCredentials: true})
       .map(resp => resp.json().count as number);
   }
